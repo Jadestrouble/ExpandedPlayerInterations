@@ -1,6 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6.2'
-	id 'babric-loom-extension' version '1.6.9'
+	id 'babric-loom' version '1.4.2'
 	id 'maven-publish'
 }
 
@@ -15,6 +14,7 @@ loom {
 	mixin {
 		useLegacyMixinAp = true
 	}
+	gluedMinecraftJar()
 	customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
 	intermediaryUrl.set("https://maven.glass-launcher.net/babric/babric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
 }
@@ -78,6 +78,12 @@ dependencies {
 
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
+	// Mod Compat
+	// Beta Horizons Creative
+	modImplementation("com.github.paulevsGitch:BHCreative:${project.bhcreative_version}"){
+		transitive false
+	}
+
 	// Optional, but convenient mods for mod creators and users alike.
 	modImplementation("com.github.calmilamsy:ModMenu:${project.modmenu_version}") {
 		transitive false
@@ -88,7 +94,11 @@ dependencies {
 	modImplementation("net.glasslauncher:HowManyItems-Fabric-Unofficial:${project.howmanyitems_version}") {
 		transitive false
 	}
+	modImplementation('com.github.matthewperiut:spc-babric:0.4.4') {
+		transitive false
+	}
 }
+
 
 processResources {
 	inputs.property "version", project.version
